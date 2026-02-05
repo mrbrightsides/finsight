@@ -2,7 +2,7 @@
 
 > **Engineering Fiscal Resilience for the Next Generation of Strategists.**
 
-[![Live App](https://img.shields.io/badge/Live_App-Visit_Vercel-6366f1?style=for-the-badge&logo=vercel)](https://finsight-ai.vercel.app)
+[![Live App](https://img.shields.io/badge/Live_App-Visit_Vercel-6366f1?style=for-the-badge&logo=vercel)](https://finsight-rantai.vercel.app/)
 [![Hackonomics 2026](https://img.shields.io/badge/Challenge-Hackonomics_2026-indigo?style=for-the-badge)](https://github.com/mrbrightsides/finsight)
 
 FinSight AI is an immersive, AI-driven financial intelligence hub designed for the **Hackonomics 2026** challenge. It bridges the gap between complex economic theory and personal wealth management by fusing **Real-Time Market Grounding**, **Recursive AI Simulations**, and **Historical Stress-Testing**.
@@ -73,7 +73,7 @@ FinSight AI is built on a modern, high-performance stack optimized for intellige
 
 We are building a community of enlightened economic strategists. Reach out for technical support or architectural discussions:
 
-- **🌐 Live App**: [finsight-ai.vercel.app](https://finsight-ai.vercel.app)
+- **🌐 Live App**: [finsight-ai.vercel.app](https://finsight-rantai.vercel.app/)
 - **💬 Telegram**: [@khudriakhmad](https://t.me/khudriakhmad)
 - **👾 Discord**: [khudri_61362](https://discord.com/channels/@khudri_61362)
 - **📧 Email**: [support@elpeef.com](mailto:support@elpeef.com)

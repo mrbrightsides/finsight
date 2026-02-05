@@ -1,8 +1,11 @@
 
 import React from 'react';
+import { EcosystemMap } from './EcosystemMap';
+import { IntelligenceMatrix } from './IntelligenceMatrix';
+import { AppTab } from '../types';
 
 interface LandingPageProps {
-  onStart: () => void;
+  onStart: (initialTab?: AppTab) => void;
   onOpenWhitepaper: () => void;
 }
 
@@ -35,7 +38,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
           <button onClick={() => scrollToSection('security')} className="hover:text-white transition-colors">Security</button>
         </div>
         <button 
-          onClick={onStart}
+          onClick={() => onStart()}
           className="px-6 py-2.5 bg-white text-slate-950 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all shadow-xl active:scale-95"
         >
           Access Terminal
@@ -63,7 +66,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
           <button 
-            onClick={onStart}
+            onClick={() => onStart()}
             className="group relative px-10 py-5 bg-indigo-600 rounded-2xl font-black text-xs uppercase tracking-widest overflow-hidden transition-all hover:bg-indigo-700 shadow-2xl shadow-indigo-500/20"
           >
             <span className="relative z-10 flex items-center gap-3">
@@ -79,43 +82,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
           </button>
         </div>
 
-        {/* Hero Visual */}
+        {/* Interactive Intelligence Matrix (Replaces static visual) */}
         <div className="mt-24 relative animate-fadeIn" style={{ animationDelay: '0.3s' }}>
           <div className="absolute inset-0 bg-indigo-500/20 blur-[120px] rounded-full scale-75 opacity-50"></div>
-          <div className="relative bg-slate-900/50 backdrop-blur-3xl border border-slate-800 p-2 rounded-[2.5rem] shadow-2xl overflow-hidden group">
-            <div className="bg-slate-950 rounded-[2rem] overflow-hidden">
-               <div className="flex items-center gap-2 px-6 py-4 bg-slate-900/80 border-b border-slate-800">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/20"></div>
-                  </div>
-                  <div className="mx-auto text-[10px] font-black text-slate-600 uppercase tracking-widest">FinSight Intelligence Matrix v4.0.1</div>
-               </div>
-               <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="space-y-4">
-                    <div className="h-4 bg-indigo-500/10 rounded-full w-2/3"></div>
-                    <div className="h-24 bg-indigo-500/5 rounded-3xl border border-indigo-500/10 flex items-center justify-center">
-                       <i className="fas fa-chart-line text-3xl text-indigo-500/40"></i>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="h-4 bg-emerald-500/10 rounded-full w-1/2"></div>
-                    <div className="h-24 bg-emerald-500/5 rounded-3xl border border-emerald-500/10 flex items-center justify-center">
-                       <i className="fas fa-shield-halved text-3xl text-emerald-500/40"></i>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="h-4 bg-purple-500/10 rounded-full w-3/4"></div>
-                    <div className="h-24 bg-purple-500/5 rounded-3xl border border-purple-500/10 flex items-center justify-center">
-                       <i className="fas fa-microchip text-3xl text-purple-500/40"></i>
-                    </div>
-                  </div>
-               </div>
-            </div>
-            {/* Glossy Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 pointer-events-none"></div>
-          </div>
+          <IntelligenceMatrix onStartWithTab={(tab) => onStart(tab)} />
         </div>
       </main>
 
@@ -123,12 +93,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
       <section id="features" className="relative z-10 px-8 py-32 max-w-7xl mx-auto scroll-mt-24">
         <div className="text-center mb-20">
           <h2 className="text-xs font-black text-indigo-500 uppercase tracking-[0.4em] mb-4">Integrated Ecosystem</h2>
-          <p className="text-4xl font-black tracking-tight">Everything you need to out-simulate the market.</p>
+          <p className="text-4xl font-black tracking-tight mb-16">Everything you need to out-simulate the market.</p>
+          
+          <div className="max-w-5xl mx-auto mb-20">
+            <EcosystemMap />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
-          <div className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-indigo-500/30 transition-all group cursor-pointer" onClick={onStart}>
+          <div className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-indigo-500/30 transition-all group cursor-pointer" onClick={() => onStart(AppTab.ADVISOR)}>
             <div className="w-14 h-14 bg-indigo-500/10 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
               <i className="fas fa-robot"></i>
             </div>
@@ -136,7 +110,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
             <p className="text-slate-400 text-sm font-medium leading-relaxed">Personalized recursive advice that understands your specific asset structure and goals.</p>
           </div>
           {/* Card 2 */}
-          <div id="simulations" className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-emerald-500/30 transition-all group md:col-span-2 relative overflow-hidden scroll-mt-24 cursor-pointer" onClick={onStart}>
+          <div id="simulations" className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-emerald-500/30 transition-all group md:col-span-2 relative overflow-hidden scroll-mt-24 cursor-pointer" onClick={() => onStart(AppTab.TIMEMACHINE)}>
              <div className="absolute top-0 right-0 p-12 opacity-5 text-[12rem] pointer-events-none group-hover:scale-110 transition-transform">
                 <i className="fas fa-hourglass-start"></i>
              </div>
@@ -149,7 +123,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
              </div>
           </div>
           {/* Card 3 */}
-          <div id="security" className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-purple-500/30 transition-all group md:col-span-2 relative overflow-hidden scroll-mt-24 cursor-pointer" onClick={onStart}>
+          <div id="security" className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-purple-500/30 transition-all group md:col-span-2 relative overflow-hidden scroll-mt-24 cursor-pointer" onClick={() => onStart(AppTab.TAX)}>
              <div className="absolute top-0 right-0 p-12 opacity-5 text-[12rem] pointer-events-none group-hover:scale-110 transition-transform">
                 <i className="fas fa-building-columns"></i>
              </div>
@@ -162,7 +136,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
              </div>
           </div>
           {/* Card 4 */}
-          <div className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-amber-500/30 transition-all group cursor-pointer" onClick={onStart}>
+          <div className="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-800 hover:border-amber-500/30 transition-all group cursor-pointer" onClick={() => onStart(AppTab.DEFI)}>
             <div className="w-14 h-14 bg-amber-500/10 text-amber-400 rounded-2xl flex items-center justify-center text-2xl mb-8 group-hover:scale-110 transition-transform">
               <i className="fas fa-shield-virus"></i>
             </div>
@@ -181,7 +155,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenWhitepa
           <span className="font-black text-lg tracking-tighter">FinSight AI</span>
         </div>
         
-        {/* Social and Web Links */}
         <div className="flex items-center justify-center gap-6 mb-10">
           <a 
             href="https://github.com/mrbrightsides" 

@@ -37,6 +37,18 @@ async function callWithRetry<T>(fn: () => Promise<T>, maxRetries = 4): Promise<T
   throw lastError;
 }
 
+export const getMarketVitals = async () => {
+  return callWithRetry(async () => {
+    const ai = getAI();
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: "Provide a one-sentence high-level summary of the single most important global economic headline from today. No preamble.",
+      config: { tools: [{ googleSearch: {} }] }
+    });
+    return response.text?.trim() || "Market connection stable. Grounding active.";
+  });
+};
+
 export const getBondConceptExplanation = async (concept: string) => {
   return callWithRetry(async () => {
     const ai = getAI();

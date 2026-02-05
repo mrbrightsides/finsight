@@ -63,6 +63,13 @@ const App: React.FC = () => {
     handleUpdateProfiles(updatedProfiles);
   };
 
+  const handleStart = (initialTab?: AppTab) => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+    setHasStarted(true);
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case AppTab.DASHBOARD:
@@ -106,7 +113,7 @@ const App: React.FC = () => {
   }
 
   if (!hasStarted) {
-    return <LandingPage onStart={() => setHasStarted(true)} onOpenWhitepaper={() => setShowWhitepaper(true)} />;
+    return <LandingPage onStart={handleStart} onOpenWhitepaper={() => setShowWhitepaper(true)} />;
   }
 
   return (

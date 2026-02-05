@@ -28,6 +28,39 @@ interface RebalanceResult {
   }[];
 }
 
+const CustomTooltip = ({ active, payload, totalWorth }: any) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    const percentage = ((data.value / totalWorth) * 100).toFixed(1);
+    return (
+      <div className="bg-slate-900/95 backdrop-blur-xl border border-white/10 p-5 rounded-[1.5rem] shadow-2xl text-white min-w-[220px] animate-fadeIn">
+        <div className="flex items-center gap-3 mb-4">
+          <div className={`w-3 h-3 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)]`} style={{ backgroundColor: CATEGORY_COLORS[data.type] }}></div>
+          <div className="font-black text-[10px] uppercase tracking-widest text-slate-400">{data.name}</div>
+        </div>
+        <div className="text-2xl font-black mb-1">${data.value.toLocaleString()}</div>
+        <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-4">{percentage}% of Portfolio</div>
+        
+        <div className="space-y-2 border-t border-white/5 pt-4">
+           <div className="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-2">Top Positions</div>
+           {data.assets.map((asset: any) => (
+             <div key={asset.id} className="flex justify-between items-center text-[10px] font-bold">
+               <span className="text-slate-300 truncate pr-4 max-w-[120px]">{asset.name}</span>
+               <span className="text-white shrink-0">${Math.abs(asset.balance).toLocaleString()}</span>
+             </div>
+           ))}
+           {data.fullAssetCount > 3 && (
+             <div className="text-[8px] text-slate-500 italic pt-1">
+               + {data.fullAssetCount - 3} more assets
+             </div>
+           )}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export const PortfolioHub: React.FC<PortfolioHubProps> = ({ profile }) => {
   const [advice, setAdvice] = useState('');
   const [isLoadingAdvice, setIsLoadingAdvice] = useState(false);
@@ -35,20 +68,27 @@ export const PortfolioHub: React.FC<PortfolioHubProps> = ({ profile }) => {
   const [isLoadingRebalance, setIsLoadingRebalance] = useState(false);
 
   const totalWorth = useMemo(() => {
-    return profile.assets.reduce((acc, asset) => acc + asset.balance, 0);
+    return profile.assets.reduce((acc, asset) => acc + Math.abs(asset.balance), 0);
   }, [profile.assets]);
 
   const allocationData = useMemo(() => {
-    const groups: Record<string, number> = {};
+    const groups: Record<string, { value: number; assets: Asset[] }> = {};
     profile.assets.forEach(asset => {
       const val = Math.abs(asset.balance);
       if (val === 0) return;
-      groups[asset.type] = (groups[asset.type] || 0) + val;
+      if (!groups[asset.type]) {
+        groups[asset.type] = { value: 0, assets: [] };
+      }
+      groups[asset.type].value += val;
+      groups[asset.type].assets.push(asset);
     });
-    return Object.entries(groups).map(([type, value]) => ({
+    
+    return Object.entries(groups).map(([type, group]) => ({
       name: type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' '),
-      value,
-      type
+      value: group.value,
+      type,
+      assets: group.assets.sort((a, b) => Math.abs(b.balance) - Math.abs(a.balance)).slice(0, 3),
+      fullAssetCount: group.assets.length
     })).sort((a, b) => b.value - a.value);
   }, [profile.assets]);
 
@@ -126,14 +166,20 @@ export const PortfolioHub: React.FC<PortfolioHubProps> = ({ profile }) => {
                   paddingAngle={8}
                   dataKey="value"
                   animationDuration={1000}
+                  isAnimationActive={true}
                 >
                   {allocationData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={CATEGORY_COLORS[entry.type] || '#cbd5e1'} stroke="none" />
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={CATEGORY_COLORS[entry.type] || '#cbd5e1'} 
+                      stroke="none" 
+                      className="cursor-pointer hover:opacity-80 transition-opacity outline-none"
+                    />
                   ))}
                 </Pie>
                 <RechartsTooltip 
-                   formatter={(val: number) => `$${val.toLocaleString()}`}
-                   contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)', fontWeight: 'bold' }}
+                   content={<CustomTooltip totalWorth={totalWorth} />}
+                   cursor={{ fill: 'transparent' }}
                 />
               </PieChart>
             </ResponsiveContainer>
