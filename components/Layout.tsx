@@ -54,7 +54,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
         <div className="mt-auto pt-6 border-t border-slate-100">
           <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-4 text-white">
             <h4 className="font-bold text-sm mb-1">Hackonomics 2026</h4>
-            <p className="text-xs opacity-80 leading-relaxed">Fusing Finance, Economics, and CS.</p>
+            <p className="text-xs opacity-80 leading-relaxed">Fusing Finance, Economics, and Computer System.</p>
           </div>
         </div>
       </aside>
