@@ -258,7 +258,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ profile, onTabChange }) =>
              <div className="relative pl-8 border-l-2 border-slate-50">
                 <div className="absolute -left-[5px] top-0 w-2 h-2 bg-emerald-500 rounded-full shadow-lg shadow-emerald-200"></div>
                 <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Compounding Streak</div>
-                <p className="text-[11px] font-bold text-slate-700 leading-relaxed">Consistency > Quantity. Your current streak of monthly deposits is accelerating your wealth path.</p>
+                <p className="text-[11px] font-bold text-slate-700 leading-relaxed">Consistency more than Quantity. Your current streak of monthly deposits is accelerating your wealth path.</p>
              </div>
              <div className="relative pl-8 border-l-2 border-slate-50">
                 <div className="absolute -left-[5px] top-0 w-2 h-2 bg-amber-500 rounded-full shadow-lg shadow-amber-200"></div>
