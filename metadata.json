@@ -1,0 +1,7 @@
+{
+  "name": "FinSight AI: Hackonomics 2026 Edition",
+  "description": "An innovative AI-powered financial literacy and economic simulation hub designed to make complex financial concepts accessible to everyone through personalized simulations, real-time market grounding, and gamified learning.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
