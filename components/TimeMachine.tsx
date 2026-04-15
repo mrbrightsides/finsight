@@ -8,11 +8,11 @@ interface TimeMachineProps {
 }
 
 const ERAS = [
+  { id: '1637', label: 'Tulip Mania', year: '1637', icon: 'fa-flower-tulip', color: 'from-emerald-600 to-emerald-800', desc: 'The world\'s first major speculative bubble.' },
   { id: '1929', label: 'Great Depression', year: '1929', icon: 'fa-cloud-meatball', color: 'from-slate-700 to-slate-900', desc: 'Global market collapse and extreme deflation.' },
   { id: '1973', label: 'Oil Crisis', year: '1973', icon: 'fa-gas-pump', color: 'from-amber-600 to-amber-800', desc: 'Stagflation and massive energy price hikes.' },
   { id: '1999', label: 'Dot Com Bubble', year: '1999', icon: 'fa-microchip', color: 'from-blue-500 to-indigo-700', desc: 'Irrational exuberance in tech valuations.' },
   { id: '2008', label: 'Subprime Crash', year: '2008', icon: 'fa-house-crack', color: 'from-rose-600 to-rose-900', desc: 'Systemic banking failure and real estate burst.' },
-  { id: '1637', label: 'Tulip Mania', year: '1637', icon: 'fa-flower-tulip', color: 'from-emerald-600 to-emerald-800', desc: 'The world\'s first major speculative bubble.' },
 ];
 
 export const TimeMachine: React.FC<TimeMachineProps> = ({ profile }) => {

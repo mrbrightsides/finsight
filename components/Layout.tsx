@@ -10,6 +10,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => {
   const navItems = [
+    { id: AppTab.ACCOUNT, icon: 'fa-user-gear', label: 'Account' },
     { id: AppTab.DASHBOARD, icon: 'fa-chart-pie', label: 'Overview' },
     { id: AppTab.PORTFOLIO, icon: 'fa-wallet', label: 'My Hub' },
     { id: AppTab.ADVISOR, icon: 'fa-robot', label: 'AI Advisor' },
@@ -21,7 +22,6 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange
     { id: AppTab.ARENA, icon: 'fa-trophy', label: 'Arena' },
     { id: AppTab.CONCEPTS, icon: 'fa-lightbulb', label: 'Concept Lab' },
     { id: AppTab.PULSE, icon: 'fa-rss', label: 'Market Pulse' },
-    { id: AppTab.ACCOUNT, icon: 'fa-user-gear', label: 'Account' },
   ];
 
   return (
